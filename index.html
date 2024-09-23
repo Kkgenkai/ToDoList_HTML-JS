@@ -16,9 +16,17 @@
 </body>
 
 <script>
+    let date = ()=>{
+        const date = new Date()
+        const todaysDate = date.toLocaleDateString();
+        return todaysDate;
+    }
+
     let h1 = document.querySelector("#TodaysDate");
     let container = document.querySelector(".container");
     let innerCont = document.querySelector(".innerCont");
+
+    h1.textContent += ": " + date();
 
     let addTask = ()=>{
         let input = document.querySelector("#taskName");
@@ -29,6 +37,7 @@
             let span = document.createElement('span');
 
             offBtn.setAttribute('type', 'checkbox');
+            offBtn.classList.add("checkbox");
             span.textContent = input.value;
             div.appendChild(offBtn);
             div.appendChild(span);
@@ -41,16 +50,14 @@
     container.addEventListener('click', (event)=>{
         if(event.target.id === "addbtn"){
             addTask();
+        }else if(event.target.classList.contains("checkbox")){
+            let nextSibVal = event.target.nextSibling.textContent;
+            if(event.target.checked === true){
+                event.target.nextSibling.innerHTML = "<s>" + nextSibVal + "</s>";
+            }else{
+                event.target.nextSibling.innerHTML = nextSibVal;
+            }
         }
-        
-        // if(event.target.class === "checkbox"){
-        //     let nextSibVal = event.target.nextSibling.textContent;
-        //     if(event.target.checked === false){
-        //         event.target.nextSibling.innerHTML = "<em>"+nextSibVal+"</em>";
-        //     }else{
-        //         event.target.nextSibling.innerHTML = nextSibVal;
-        //     }
-        // }
     });
 </script>
 </html>
