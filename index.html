@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+</head>
+<body>
+    <h1 id="TodaysDate">Todays Date</h1>
+    
+    <div class="container">
+        <div class="innerCont">
+            <input id="taskName" type="text" placeholder="New Task"><button id="addbtn" type="button">+</button>
+        </div>
+    </div>
+</body>
+
+<script>
+    let h1 = document.querySelector("#TodaysDate");
+    let container = document.querySelector(".container");
+    let innerCont = document.querySelector(".innerCont");
+
+    let addTask = ()=>{
+        let input = document.querySelector("#taskName");
+
+        if(input.value !== ''){
+            let div = document.createElement('div');
+            let offBtn = document.createElement('input');
+            let span = document.createElement('span');
+
+            offBtn.setAttribute('type', 'checkbox');
+            span.textContent = input.value;
+            div.appendChild(offBtn);
+            div.appendChild(span);
+
+            innerCont.insertAdjacentElement('beforebegin', div);
+            input.value = '';
+        }
+    }
+
+    container.addEventListener('click', (event)=>{
+        if(event.target.id === "addbtn"){
+            addTask();
+        }
+        
+        // if(event.target.class === "checkbox"){
+        //     let nextSibVal = event.target.nextSibling.textContent;
+        //     if(event.target.checked === false){
+        //         event.target.nextSibling.innerHTML = "<em>"+nextSibVal+"</em>";
+        //     }else{
+        //         event.target.nextSibling.innerHTML = nextSibVal;
+        //     }
+        // }
+    });
+</script>
+</html>
