@@ -4,9 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To Do List</title>
+    <style>
+        body{
+            margin-left: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1 id="TodaysDate">Todays Date</h1>
+    <h1>To Do List</h1>
+    <h3 id="TodaysDate">Todays Date</h3>
     
     <div class="container">
         <div class="innerCont">
@@ -22,34 +28,41 @@
         return todaysDate;
     }
 
-    let h1 = document.querySelector("#TodaysDate");
-    let container = document.querySelector(".container");
-    let innerCont = document.querySelector(".innerCont");
-
-    h1.textContent += ": " + date();
-
     let addTask = ()=>{
         let input = document.querySelector("#taskName");
 
         if(input.value !== ''){
             let div = document.createElement('div');
-            let offBtn = document.createElement('input');
+            let checkBtn = document.createElement('input');
             let span = document.createElement('span');
             let removBtn = document.createElement('button');
+            let editBtn = document.createElement('button');
 
-            offBtn.setAttribute('type', 'checkbox');
-            offBtn.classList.add("checkbox");
+            checkBtn.setAttribute('type', 'checkbox');
+            checkBtn.classList.add("checkbox");
             span.textContent = input.value + " ";
+            editBtn.innerHTML = "edit";
+            editBtn.classList.add("edit");
             removBtn.innerHTML = "-";
             removBtn.classList.add("delete");
-            div.appendChild(offBtn);
+            
+            div.appendChild(checkBtn);
             div.appendChild(span);
+            div.appendChild(editBtn);
             div.appendChild(removBtn);
 
             innerCont.insertAdjacentElement('beforebegin', div);
             input.value = '';
         }
     }
+
+    let h3 = document.querySelector("#TodaysDate");
+    let container = document.querySelector(".container");
+    let innerCont = document.querySelector(".innerCont");
+
+    h3.textContent += ": " + date();
+
+    
 
     container.addEventListener('click', (event)=>{
         if(event.target.id === "addbtn"){
@@ -58,15 +71,23 @@
             let nextSibVal = event.target.nextSibling.textContent;
             if(event.target.checked === true){
                 event.target.nextSibling.innerHTML = "<s>" + nextSibVal + "</s>";
+                event.target.nextSibling.nextSibling.setAttribute('style', 'display: none');
             }else{
                 event.target.nextSibling.innerHTML = nextSibVal;
+                event.target.nextSibling.nextSibling.setAttribute('style', 'display: inline');
             }
         }else if(event.target.classList.contains("delete")){
-           let confirmDel = confirm("Remove This Task ?");
-           if(confirmDel){
+            let taskVal = event.target.previousSibling.previousSibling.textContent;
+            let confirmDel = confirm("Remove This: \'"+ taskVal +"\' Task ?");
+            if(confirmDel){
                 event.target.parentElement.remove();
-           }
-        }
+            }
+        }else if(event.target.classList.contains("edit")){
+            let taskSpan = event.target.previousSibling;
+            let taskVal = taskSpan.textContent;
+            let confirmEdit = prompt("Edit This Task:", taskVal);
+            taskSpan.textContent = confirmEdit === null ? taskVal: confirmEdit;
+        }       
     });
 </script>
 </html>
