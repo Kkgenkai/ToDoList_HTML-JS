@@ -23,32 +23,9 @@
 
 <script>
     let date = ()=>{
+        let options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
         const date = new Date()
-        let todaysName = "";
-        switch(date.getDay()){
-            case 0:
-                todaysName = "Sunday";
-                break;
-            case 1:
-                todaysName = "Monday";
-                break;
-            case 2:
-                todaysName = "Tuesday";
-                break;
-            case 3:
-                todaysName = "Wednsday";
-                break;
-            case 4:
-                todaysName = "Thursday";
-                break;
-            case 5:
-                todaysName = "Friday";
-                break;
-            case 6:
-                todaysName = "Saturday";
-                break;
-        }
-        const todaysDate = todaysName + " " + date.toLocaleDateString();
+        const todaysDate = date.toLocaleDateString("en-US", options);
         return todaysDate;
     }
 
