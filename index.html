@@ -24,7 +24,31 @@
 <script>
     let date = ()=>{
         const date = new Date()
-        const todaysDate = date.toLocaleDateString();
+        let todaysName = "";
+        switch(date.getDay()){
+            case 0:
+                todaysName = "Sunday";
+                break;
+            case 1:
+                todaysName = "Monday";
+                break;
+            case 2:
+                todaysName = "Tuesday";
+                break;
+            case 3:
+                todaysName = "Wednsday";
+                break;
+            case 4:
+                todaysName = "Thursday";
+                break;
+            case 5:
+                todaysName = "Friday";
+                break;
+            case 6:
+                todaysName = "Saturday";
+                break;
+        }
+        const todaysDate = todaysName + " " + date.toLocaleDateString();
         return todaysDate;
     }
 
